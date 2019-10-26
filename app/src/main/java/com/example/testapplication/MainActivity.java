@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void quizPage(View view) {
-        Intent intent = new Intent(this, QuizPage.class);
+        Intent intent = new Intent(this, QuizActivity.class);
         startActivity(intent);
     }
 
