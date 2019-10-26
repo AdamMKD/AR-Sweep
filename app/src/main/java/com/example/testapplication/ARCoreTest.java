@@ -11,13 +11,17 @@ import android.view.MotionEvent;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.google.ar.core.Anchor;
-import com.google.ar.core.HitResult;
-import com.google.ar.core.Plane;
+import com.google.ar.core.*;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.FrameTime;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class ARCoreTest extends AppCompatActivity {
 
@@ -48,11 +52,12 @@ public class ARCoreTest extends AppCompatActivity {
                 .exceptionally(
                         throwable -> {
                             Toast toast =
-                                    Toast.makeText(this, "Unable to load andy renderable", Toast.LENGTH_LONG);
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                             return null;
                         });
+
 
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
@@ -67,10 +72,50 @@ public class ARCoreTest extends AppCompatActivity {
 
                     // Create the transformable andy and add it to the anchor.
                     TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
+
+                    andy.getScaleController().setMinScale(0.05f);
+                    andy.getScaleController().setMaxScale(0.1f);
+
                     andy.setParent(anchorNode);
                     andy.setRenderable(andyRenderable);
                     andy.select();
                 });
+
+        arFragment.getArSceneView().getScene().addOnUpdateListener(
+                new Scene.OnUpdateListener() {
+                    @Override
+                    public void onUpdate(FrameTime frameTime) {
+                        Frame arFrame = arFragment.getArSceneView().getArFrame();
+                        if (arFrame != null) {
+                            Iterator<Plane> updatedTrackablesIterator = arFrame.getUpdatedTrackables(Plane.class).iterator();
+                            while (updatedTrackablesIterator.hasNext()) {
+                                Plane plane = updatedTrackablesIterator.next();
+                                if (plane.getTrackingState() == TrackingState.TRACKING) {
+                                    arFragment.getPlaneDiscoveryController().hide();
+                                    Iterator<Anchor> updatedAnchorsIterator = arFrame.getUpdatedAnchors().iterator();
+                                    List<HitResult> hitTest = arFrame.hitTest(0,0);
+                                    Iterator<HitResult> hitTestIterator = hitTest.iterator();
+                                    while (hitTestIterator.hasNext()) {
+                                        HitResult hitResult = hitTestIterator.next();
+                                        Anchor modelAnchor = plane.createAnchor(hitResult.getHitPose());
+                                        AnchorNode modelAnchorNode = new AnchorNode(modelAnchor);
+                                        modelAnchorNode.setParent(arFragment.getArSceneView().getScene());
+
+                                        TransformableNode modelTransformableNode = new TransformableNode(arFragment.getTransformationSystem());
+                                        modelTransformableNode.setParent(modelAnchorNode);
+                                        modelTransformableNode.setRenderable(andyRenderable);
+
+                                            modelTransformableNode.getScaleController().setMinScale(0.08f);
+                                            modelTransformableNode.getScaleController().setMaxScale(0.13f);
+
+                                        //TODO: Set position on table top
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        );
     }
 
     public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
