@@ -19,8 +19,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
 
@@ -46,3 +46,28 @@ sceneform.asset('assets/magikarpmodel.obj',
         'default',
         'assets/magikarpmodel.sfa',
         'src/main/res/raw/magikarpmodel')
+
+sceneform.asset('assets/banana.obj',
+        'default',
+        'assets/banana.sfa',
+        'src/main/res/raw/banana')
+
+sceneform.asset('assets/cannedwhipcream.obj',
+        'default',
+        'assets/cannedwhipcream.sfa',
+        'src/main/res/raw/cannedwhipcream')
+
+sceneform.asset('assets/chocolatebar.obj',
+        'default',
+        'assets/chocolatebar.sfa',
+        'src/main/res/raw/chocolatebar')
+
+sceneform.asset('assets/cookie.obj',
+        'default',
+        'assets/cookie.sfa',
+        'src/main/res/raw/cookie')
+
+sceneform.asset('assets/milkcarton.obj',
+        'default',
+        'assets/milkcarton.sfa',
+        'src/main/res/raw/milkcarton')
