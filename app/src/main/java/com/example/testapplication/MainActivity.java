@@ -1,25 +1,23 @@
 package com.example.testapplication;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
-import android.animation.ValueAnimator;
-import android.media.Image;
-import android.renderscript.Sampler;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
 
+    final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, 1.0f);
     private Button playButton;
     private Button exitButton;
-
     //Used for panorama on home screen
     private ImageView backgroundOne;
     private ImageView backgroundTwo;
-    final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, 1.0f);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    animate(animator);
+        animate(animator);
     }
 
-    private void animate(ValueAnimator animator){
+    private void animate(ValueAnimator animator) {
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator()); //what is this
         animator.setDuration(10000L);
