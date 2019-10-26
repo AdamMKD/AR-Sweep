@@ -70,4 +70,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QuizPage.class);
         startActivity(intent);
     }
+
+    public void ArGame(View view) {
+        Intent intent = new Intent(this, ARCoreTest.class);
+        startActivity(intent);
+    }
 }
