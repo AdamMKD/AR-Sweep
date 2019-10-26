@@ -8,7 +8,6 @@ import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.widget.Switch;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,10 +27,10 @@ public class ARCoreTest extends AppCompatActivity {
 
     private static final String TAG = ARCoreTest.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
-    private Random randomGenerator;
 
     private ArFragment arFragment;
     private ModelRenderable bananaRenderable, chocolateRenderable, whippedCreamRenderable, milkCartonRenderable, cookieRenderable;
+    private Random randomGenerator;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -105,7 +104,7 @@ public class ARCoreTest extends AppCompatActivity {
         Anchor anchor = arFragment.getArSceneView().getSession().createAnchor(pose);
         AnchorNode anchorNode = new AnchorNode(anchor);
         anchorNode.setParent(arFragment.getArSceneView().getScene());
-        
+
         return anchorNode;
     }
 
@@ -120,7 +119,7 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setRenderable(bananaRenderable);
                 transformableNode.select();
                 break;
-                
+
             case 2:
                 transformableNode.getScaleController().setMinScale(0.08f);
                 transformableNode.getScaleController().setMaxScale(0.13f);
@@ -129,7 +128,7 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setRenderable(cookieRenderable);
                 transformableNode.select();
                 break;
-                
+
             case 3:
                 transformableNode.getScaleController().setMinScale(0.08f);
                 transformableNode.getScaleController().setMaxScale(0.13f);
