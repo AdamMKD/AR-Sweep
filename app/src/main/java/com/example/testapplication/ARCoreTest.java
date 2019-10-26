@@ -51,7 +51,6 @@ public class ARCoreTest extends AppCompatActivity {
         // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().
         setUpShoppingModels();
 
-
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
                     // Create the Anchor.
@@ -68,82 +67,92 @@ public class ARCoreTest extends AppCompatActivity {
                     @Override
                     public void onUpdate(FrameTime frameTime) {
                         Frame arFrame = arFragment.getArSceneView().getArFrame();
-                        ArSceneView arSceneView = arFragment.getArSceneView();
                         if (arFrame != null) {
+
                             Iterator<Plane> planes = arFrame.getUpdatedTrackables(Plane.class).iterator();
+
                             while (planes.hasNext()) {
                                 Plane plane = planes.next();
                                 if (plane.getTrackingState() == TrackingState.TRACKING) {
                                     arFragment.getPlaneDiscoveryController().hide();
-                                    Collection<Anchor> updatedAnchors = arFrame.getUpdatedAnchors();
-
-                                    plane.getCenterPose();
-
-                                    Iterator<HitResult> hitResultIterator = arFrame.hitTest(0,0).iterator();
-                                    while (hitResultIterator.hasNext()) {
-                                        HitResult hitResult = hitResultIterator.next();
-
-                                        Anchor anchor = hitResult.createAnchor();
-                                        AnchorNode anchorNode = new AnchorNode(anchor);
-                                        anchorNode.setParent(arFragment.getArSceneView().getScene());
-
-                                        createShoppingItem(1 + randomGenerator.nextInt(6), anchorNode);
-
-                                    }
+                                    createShoppingItem(1 + randomGenerator.nextInt(6), positionObjectOnPane(plane));
                                 }
                             }
+
+
                         }
                     }
                 }
         );
     }
 
+
+    private AnchorNode positionObjectOnPane(Plane plane) {
+        float maxX = plane.getExtentX() * 2;
+        float randomX = (maxX * randomGenerator.nextFloat()) - plane.getExtentX();
+
+        float maxZ = plane.getExtentZ() * 2;
+        float randomZ = (maxZ * randomGenerator.nextFloat()) - plane.getExtentZ();
+
+        Pose pose = plane.getCenterPose();
+        float[] translation = pose.getTranslation();
+        float[] rotation = pose.getRotationQuaternion();
+
+        translation[0] += randomX;
+        translation[2] += randomZ;
+        pose = new Pose(translation, rotation);
+
+        Anchor anchor = arFragment.getArSceneView().getSession().createAnchor(pose);
+        AnchorNode anchorNode = new AnchorNode(anchor);
+        anchorNode.setParent(arFragment.getArSceneView().getScene());
+        
+        return anchorNode;
+    }
+
     private void createShoppingItem(int selected, AnchorNode anchorNode) {
+        TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
         switch (selected) {
-            case 1 : TransformableNode banana = new TransformableNode(arFragment.getTransformationSystem());
+            case 1:
+                transformableNode.getScaleController().setMinScale(0.08f);
+                transformableNode.getScaleController().setMaxScale(0.13f);
 
-                banana.getScaleController().setMinScale(0.08f);
-                banana.getScaleController().setMaxScale(0.13f);
-
-                banana.setParent(anchorNode);
-                banana.setRenderable(bananaRenderable);
-                banana.select();
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(bananaRenderable);
+                transformableNode.select();
                 break;
-            case 2 : TransformableNode cookie = new TransformableNode(arFragment.getTransformationSystem());
+                
+            case 2:
+                transformableNode.getScaleController().setMinScale(0.08f);
+                transformableNode.getScaleController().setMaxScale(0.13f);
 
-                cookie.getScaleController().setMinScale(0.08f);
-                cookie.getScaleController().setMaxScale(0.13f);
-
-                cookie.setParent(anchorNode);
-                cookie.setRenderable(cookieRenderable);
-                cookie.select();
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(cookieRenderable);
+                transformableNode.select();
                 break;
-            case 3 : TransformableNode milkCarton = new TransformableNode(arFragment.getTransformationSystem());
+                
+            case 3:
+                transformableNode.getScaleController().setMinScale(0.08f);
+                transformableNode.getScaleController().setMaxScale(0.13f);
 
-                milkCarton.getScaleController().setMinScale(0.08f);
-                milkCarton.getScaleController().setMaxScale(0.13f);
-
-                milkCarton.setParent(anchorNode);
-                milkCarton.setRenderable(milkCartonRenderable);
-                milkCarton.select();
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(milkCartonRenderable);
+                transformableNode.select();
                 break;
-            case 4 : TransformableNode whippedCream = new TransformableNode(arFragment.getTransformationSystem());
+            case 4:
+                transformableNode.getScaleController().setMinScale(0.08f);
+                transformableNode.getScaleController().setMaxScale(0.13f);
 
-                whippedCream.getScaleController().setMinScale(0.08f);
-                whippedCream.getScaleController().setMaxScale(0.13f);
-
-                whippedCream.setParent(anchorNode);
-                whippedCream.setRenderable(whippedCreamRenderable);
-                whippedCream.select();
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(whippedCreamRenderable);
+                transformableNode.select();
                 break;
-            case 5 : TransformableNode chocolate = new TransformableNode(arFragment.getTransformationSystem());
+            case 5:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
 
-                chocolate.getScaleController().setMinScale(0.08f);
-                chocolate.getScaleController().setMaxScale(0.13f);
-
-                chocolate.setParent(anchorNode);
-                chocolate.setRenderable(chocolateRenderable);
-                chocolate.select();
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(chocolateRenderable);
+                transformableNode.select();
                 break;
         }
     }
