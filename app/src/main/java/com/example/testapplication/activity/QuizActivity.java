@@ -48,12 +48,12 @@ public class QuizActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (this.getClass().getSimpleName().equals("QuizActivity")) {
+//                if (this.getClass().getSimpleName().equals("QuizActivity")) {
                     // This takes you to a new page with your pass
                     cancel();
                     timeDisplayPage(findViewById(android.R.id.content));
 
-                }
+//                }
             }
         }.start();
 

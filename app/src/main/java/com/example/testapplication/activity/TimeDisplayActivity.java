@@ -37,7 +37,7 @@ public class TimeDisplayActivity extends AppCompatActivity {
             new CoffeeCup("Coffee Cup", 6, R.raw.coffeecup)
     ));
     private Random random = new Random();
-    private int numberOfitems = 8;
+    private int numberOfitems = 7;
     private ArrayList<ShoppingItem> displayedListitems = new ArrayList<>();
 
     @Override
