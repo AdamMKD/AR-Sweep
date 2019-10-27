@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        backgroundOne = (ImageView) findViewById(R.id.background1);
-        backgroundTwo = (ImageView) findViewById(R.id.background2);
 
 
         playButton = (Button) findViewById(R.id.playButton);
@@ -44,27 +42,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        animate(animator);
+
     }
 
-    private void animate(ValueAnimator animator) {
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setInterpolator(new LinearInterpolator()); //what is this
-        animator.setDuration(10000L);
 
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                final float progress = (float) animation.getAnimatedValue();
-                final float width = backgroundOne.getWidth();
-                final float translationX = width * progress;
-                backgroundOne.setTranslationX(translationX);
-                backgroundTwo.setTranslationX(translationX - width);
-            }
-        });
-
-        animator.start();
-    }
 
     public void quizPage(View view) {
         Intent intent = new Intent(this, QuizActivity.class);

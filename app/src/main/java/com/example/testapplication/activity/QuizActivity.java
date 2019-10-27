@@ -27,6 +27,7 @@ public class QuizActivity extends AppCompatActivity {
     private ArrayList<Integer> colourCheck = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
     private Button highlightedButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,9 @@ public class QuizActivity extends AppCompatActivity {
         }.start();
 
         setQuestion();
+
+        // Part of the back button functionality.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void timedisplaypage(View view) {
@@ -123,13 +127,12 @@ public class QuizActivity extends AppCompatActivity {
     private void setQuestion() {
         TextView question = findViewById(R.id.question);
         Button option1 = findViewById(R.id.button1);
-        option1.setBackgroundColor(Color.LTGRAY);
         Button option2 = findViewById(R.id.button2);
-        option2.setBackgroundColor(Color.LTGRAY);
+
         Button option3 = findViewById(R.id.button3);
-        option3.setBackgroundColor(Color.LTGRAY);
+
         Button option4 = findViewById(R.id.button4);
-        option4.setBackgroundColor(Color.LTGRAY);
+
 
         questionManager = new QuestionManager();
         question.setText(questionManager.getQuestion());
@@ -155,18 +158,18 @@ public class QuizActivity extends AppCompatActivity {
 
     private void changeBackground(Button button, int colourState) {
         if (colourCheck.get(colourState) % 2 == 0) {
-            button.setBackgroundColor(Color.argb(106, 185, 111, 1));
+            button.setBackground(getResources().getDrawable(R.drawable.roundedbutton2));
             colourCheck.set(colourState, 1);
             highlightedButton = button;
         } else {
-            button.setBackgroundColor(Color.LTGRAY);
+            button.setBackground(getResources().getDrawable(R.drawable.roundedbutton));
             colourCheck.set(colourState, 0);
             highlightedButton = null;
         }
     }
 
     private void resetOtherButtons(Button button, int colourState) {
-        button.setBackgroundColor(Color.LTGRAY);
+        button.setBackground(getResources().getDrawable(R.drawable.roundedbutton));
         colourCheck.set(colourState, 0);
     }
 

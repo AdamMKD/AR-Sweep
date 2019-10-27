@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.12.0'
     implementation 'com.google.ar.sceneform:assets:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 }
 
 apply plugin: 'com.google.ar.sceneform.plugin'
@@ -75,3 +76,23 @@ sceneform.asset('assets/milkcarton.obj',
         'default',
         'assets/milkcarton.sfa',
         'src/main/res/raw/milkcarton')
+
+sceneform.asset('assets/blueberrymuffin.obj',
+        'default',
+        'assets/blueberrymuffin.sfa',
+        'src/main/res/raw/blueberrymuffin')
+
+sceneform.asset('assets/coffeecup.obj',
+        'default',
+        'assets/coffeecup.sfa',
+        'src/main/res/raw/coffeecup')
+
+sceneform.asset('assets/poisonbottle.obj',
+        'default',
+        'assets/poisonbottle.sfa',
+        'src/main/res/raw/poisonbottle')
+
+sceneform.asset('assets/snowman.obj',
+        'default',
+        'assets/snowman.sfa',
+        'src/main/res/raw/snowman')

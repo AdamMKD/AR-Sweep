@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -17,9 +18,9 @@ import com.google.ar.sceneform.*;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
-
 import java.util.Iterator;
 import java.util.Random;
+import java.util.*;
 
 public class ARCoreActivity extends AppCompatActivity {
 
@@ -27,8 +28,13 @@ public class ARCoreActivity extends AppCompatActivity {
     private static final double MIN_OPENGL_VERSION = 3.0;
 
     private ArFragment arFragment;
-    private ModelRenderable bananaRenderable, chocolateRenderable, whippedCreamRenderable, milkCartonRenderable, cookieRenderable;
+    private ModelRenderable bananaRenderable, chocolateRenderable, whippedCreamRenderable, milkCartonRenderable, cookieRenderable,
+                            poisonBottleRenderable, blueberryMuffinRenderable, snowmanRenderable, coffeecupRenderable;
+    private ArrayList<ShoppingItem> userItemList;
+    private ArrayList<ShoppingItem> spawnedList;
     private Random randomGenerator;
+
+    private boolean readyToSpawnItems;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -38,6 +44,28 @@ public class ARCoreActivity extends AppCompatActivity {
         if (!checkIsSupportedDeviceOrFinish(this)) {
             return;
         }
+
+        spawnedList = new ArrayList<ShoppingItem>();
+
+        //
+        new CountDownTimer(30 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (millisUntilFinished % 2000 == 0) {
+                    spawnedList.clear();
+                } else if (millisUntilFinished % 1000 == 0) {
+                    readyToSpawnItems = false;
+                } else {
+                    readyToSpawnItems = true;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                cancel();
+                start();
+            }
+        }.start();
 
         randomGenerator = new Random();
 
@@ -72,7 +100,10 @@ public class ARCoreActivity extends AppCompatActivity {
                                 Plane plane = planes.next();
                                 if (plane.getTrackingState() == TrackingState.TRACKING) {
                                     arFragment.getPlaneDiscoveryController().hide();
-                                    createShoppingItem(1 + randomGenerator.nextInt(6), positionObjectOnPane(plane));
+
+                                    if (spawnedList.size() < 6 && readyToSpawnItems) {
+                                        createShoppingItem(1 + randomGenerator.nextInt(10), positionObjectOnPane(plane));
+                                    }
                                 }
                             }
 
@@ -81,7 +112,45 @@ public class ARCoreActivity extends AppCompatActivity {
                     }
                 }
         );
+
+
+//        arFragment.setOnTapArPlaneListener(new Node.OnTapListener() {
+//            @Override
+//            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+//                if (anchorNode.getAnchor() != null) {
+//                    arFragment.getArSceneView().getScene().removeChild(anchorNode);
+//                    anchorNode.getAnchor().detach();
+//                    anchorNode.setParent(null);
+//                }
+//            }
+//        });
+
+
     }
+
+//    private void handleOnTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
+//        Log.d(TAG, "handleOnTouch");
+//        // First call ArFragment's listener to handle TransformableNodes.
+//        arFragment.onPeekTouch(hitTestResult, motionEvent);
+//
+//        //We are only interested in the ACTION_UP events - anything else just return
+//        if (motionEvent.getAction() != MotionEvent.ACTION_UP) {
+//            return;
+//        }
+//
+//        // Check for touching a Sceneform node
+//        if (hitTestResult.getNode() != null) {
+//            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
+//            Node hitNode1 = hitTestResult.getNode();
+//
+//            Toast.makeText(ARCoreTest.this, "We've hit Andy!!", Toast.LENGTH_SHORT).show();
+//            arFragment.getArSceneView().getScene().removeChild(hitNode1);
+//            hitNode1.getAnchor().detach();
+//            hitNode1.setParent(null);
+//            hitNode1 = null;
+//
+//        }
+//    }
 
 
     private AnchorNode positionObjectOnPane(Plane plane) {
@@ -116,6 +185,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(bananaRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
                 break;
 
             case 2:
@@ -125,6 +196,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(cookieRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Cookie("Cookie", 0, R.raw.banana));
                 break;
 
             case 3:
@@ -134,6 +207,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(milkCartonRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new MilkCarton("Milk Carton", 0, R.raw.banana));
                 break;
             case 4:
                 transformableNode.getScaleController().setMinScale(0.08f);
@@ -142,6 +217,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(whippedCreamRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new WhippedCream("Whipped Cream", 0, R.raw.banana));
                 break;
             case 5:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -150,8 +227,61 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(chocolateRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Chocolate("Chocolate", 0, R.raw.banana));
+                break;
+            case 6:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(poisonBottleRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new PoisonBottle("Poison Bottle", 0, R.raw.banana));
+                break;
+            case 7:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(blueberryMuffinRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new BlueberryMuffin("Blueberry Muffin", 0, R.raw.banana));
+                break;
+            case 8:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(snowmanRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new Snowman("Snowman", 0, R.raw.banana));
+                break;
+            case 9:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(coffeecupRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new Banana("Coffee Cup", 0, R.raw.banana));
                 break;
         }
+
+        transformableNode.setOnTapListener(new Node.OnTapListener() {
+            @Override
+            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                if (anchorNode.getAnchor() != null) {
+                    arFragment.getArSceneView().getScene().removeChild(anchorNode);
+                    anchorNode.getAnchor().detach();
+                    anchorNode.setParent(null);
+                }
+            }
+        });
     }
 
     private void setUpShoppingModels() {
@@ -207,6 +337,54 @@ public class ARCoreActivity extends AppCompatActivity {
                 .setSource(this, R.raw.milkcarton)
                 .build()
                 .thenAccept(renderable -> milkCartonRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.poisonbottle)
+                .build()
+                .thenAccept(renderable -> poisonBottleRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.blueberrymuffin)
+                .build()
+                .thenAccept(renderable -> blueberryMuffinRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.snowman)
+                .build()
+                .thenAccept(renderable -> snowmanRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.coffeecup)
+                .build()
+                .thenAccept(renderable -> coffeecupRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast toast =
