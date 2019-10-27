@@ -26,7 +26,8 @@ public class ARCoreTest extends AppCompatActivity {
     private static final double MIN_OPENGL_VERSION = 3.0;
 
     private ArFragment arFragment;
-    private ModelRenderable bananaRenderable, chocolateRenderable, whippedCreamRenderable, milkCartonRenderable, cookieRenderable;
+    private ModelRenderable bananaRenderable, chocolateRenderable, whippedCreamRenderable, milkCartonRenderable, cookieRenderable,
+                            poisonBottleRenderable, blueberryMuffinRenderable, snowmanRenderable, coffeecupRenderable;
     private ArrayList<ShoppingItem> userItemList;
     private ArrayList<ShoppingItem> spawnedList;
     private Random randomGenerator;
@@ -99,7 +100,7 @@ public class ARCoreTest extends AppCompatActivity {
                                     arFragment.getPlaneDiscoveryController().hide();
 
                                     if (spawnedList.size() < 6 && readyToSpawnItems) {
-                                        createShoppingItem(1 + randomGenerator.nextInt(6), positionObjectOnPane(plane));
+                                        createShoppingItem(1 + randomGenerator.nextInt(10), positionObjectOnPane(plane));
                                     }
                                 }
                             }
@@ -194,7 +195,7 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setRenderable(cookieRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
+                spawnedList.add(new Cookie("Cookie", 0, R.raw.banana));
                 break;
 
             case 3:
@@ -205,7 +206,7 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setRenderable(milkCartonRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
+                spawnedList.add(new MilkCarton("Milk Carton", 0, R.raw.banana));
                 break;
             case 4:
                 transformableNode.getScaleController().setMinScale(0.08f);
@@ -215,7 +216,7 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setRenderable(whippedCreamRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
+                spawnedList.add(new WhippedCream("Whipped Cream", 0, R.raw.banana));
                 break;
             case 5:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -225,7 +226,47 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setRenderable(chocolateRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
+                spawnedList.add(new Chocolate("Chocolate", 0, R.raw.banana));
+                break;
+            case 6:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(poisonBottleRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new PoisonBottle("Poison Bottle", 0, R.raw.banana));
+                break;
+            case 7:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(blueberryMuffinRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new BlueberryMuffin("Blueberry Muffin", 0, R.raw.banana));
+                break;
+            case 8:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(snowmanRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new Snowman("Snowman", 0, R.raw.banana));
+                break;
+            case 9:
+                transformableNode.getScaleController().setMinScale(0.20f);
+                transformableNode.getScaleController().setMaxScale(0.25f);
+
+                transformableNode.setParent(anchorNode);
+                transformableNode.setRenderable(coffeecupRenderable);
+                transformableNode.select();
+
+                spawnedList.add(new Banana("Coffee Cup", 0, R.raw.banana));
                 break;
         }
 
@@ -294,6 +335,54 @@ public class ARCoreTest extends AppCompatActivity {
                 .setSource(this, R.raw.milkcarton)
                 .build()
                 .thenAccept(renderable -> milkCartonRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.poisonbottle)
+                .build()
+                .thenAccept(renderable -> poisonBottleRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.blueberrymuffin)
+                .build()
+                .thenAccept(renderable -> blueberryMuffinRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.snowman)
+                .build()
+                .thenAccept(renderable -> snowmanRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast toast =
+                                    Toast.makeText(this, "Unable to load the shop item", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            return null;
+                        });
+        ModelRenderable.builder()
+                .setSource(this, R.raw.coffeecup)
+                .build()
+                .thenAccept(renderable -> coffeecupRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast toast =

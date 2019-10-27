@@ -23,10 +23,14 @@ public class TimeDisplayActivity extends AppCompatActivity {
             new Chocolate("Chocolate", 5, R.raw.chocolatebar),
             new Cookie("Cookie", 3, R.raw.cookie),
             new MilkCarton("Milk Carton", 7, R.raw.milkcarton),
-            new WhippedCream("Whipped Cream", 12, R.raw.cannedwhipcream)
+            new WhippedCream("Whipped Cream", 12, R.raw.cannedwhipcream),
+            new PoisonBottle("Poison Bottle", -5, R.raw.poisonbottle),
+            new BlueberryMuffin("Blueberry Muffin", 4, R.raw.blueberrymuffin),
+            new Snowman("Snowman", -10, R.raw.snowman),
+            new CoffeeCup("Coffee Cup", 6, R.raw.coffeecup)
     ));
     private Random random = new Random();
-    private int numberOfitems = 5;
+    private int numberOfitems = 9;
     private ArrayList<ShoppingItem> displayedListitems = new ArrayList<>();
 
     @Override

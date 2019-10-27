@@ -72,3 +72,23 @@ sceneform.asset('assets/milkcarton.obj',
         'default',
         'assets/milkcarton.sfa',
         'src/main/res/raw/milkcarton')
+
+sceneform.asset('assets/blueberrymuffin.obj',
+        'default',
+        'assets/blueberrymuffin.sfa',
+        'src/main/res/raw/blueberrymuffin')
+
+sceneform.asset('assets/coffeecup.obj',
+        'default',
+        'assets/coffeecup.sfa',
+        'src/main/res/raw/coffeecup')
+
+sceneform.asset('assets/poisonbottle.obj',
+        'default',
+        'assets/poisonbottle.sfa',
+        'src/main/res/raw/poisonbottle')
+
+sceneform.asset('assets/snowman.obj',
+        'default',
+        'assets/snowman.sfa',
+        'src/main/res/raw/snowman')
