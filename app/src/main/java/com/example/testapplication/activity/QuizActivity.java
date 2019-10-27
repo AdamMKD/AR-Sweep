@@ -1,9 +1,9 @@
 package com.example.testapplication.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,7 +35,7 @@ public class QuizActivity extends AppCompatActivity {
 
         SCORE = 0;
         // This is the SCORE based on the questions that the user had
-        textView = findViewById(R.id.score);
+        textView = findViewById(R.id.gameOverText);
         textView.setText("Score is " + SCORE);
         // The timer for the challenge.
         final TextView counttime = findViewById(R.id.countdown);
@@ -48,16 +48,19 @@ public class QuizActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                // This takes you to a new page with your result
-                cancel();
-                timedisplaypage(findViewById(android.R.id.content));
+                if (this.getClass().getSimpleName().equals("QuizActivity")) {
+                    // This takes you to a new page with your pass
+                    cancel();
+                    timeDisplayPage(findViewById(android.R.id.content));
+
+                }
             }
         }.start();
 
         setQuestion();
     }
 
-    public void timedisplaypage(View view) {
+    public void timeDisplayPage(View view) {
         Intent intent = new Intent(this, TimeDisplayActivity.class);
         startActivity(intent);
     }
@@ -114,6 +117,7 @@ public class QuizActivity extends AppCompatActivity {
                 colourCheck.set(i, 0);
             }
 
+            resetOtherButtons(highlightedButton, 0);
             // Set the new questions
             setQuestion();
             // Reset the picked button
@@ -125,11 +129,8 @@ public class QuizActivity extends AppCompatActivity {
         TextView question = findViewById(R.id.question);
         Button option1 = findViewById(R.id.button1);
         Button option2 = findViewById(R.id.button2);
-
         Button option3 = findViewById(R.id.button3);
-
         Button option4 = findViewById(R.id.button4);
-
 
         questionManager = new QuestionManager();
         question.setText(questionManager.getQuestion());

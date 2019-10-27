@@ -2,18 +2,15 @@ package com.example.testapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.testapplication.shopping.BlueberryMuffin;
-import com.example.testapplication.shopping.CoffeeCup;
-import com.example.testapplication.shopping.PoisonBottle;
 import com.example.testapplication.R;
-import com.example.testapplication.shopping.Snowman;
 import com.example.testapplication.shopping.Banana;
+import com.example.testapplication.shopping.BlueberryMuffin;
 import com.example.testapplication.shopping.Chocolate;
+import com.example.testapplication.shopping.CoffeeCup;
 import com.example.testapplication.shopping.Cookie;
 import com.example.testapplication.shopping.MilkCarton;
 import com.example.testapplication.shopping.ShoppingItem;
@@ -36,13 +33,11 @@ public class TimeDisplayActivity extends AppCompatActivity {
             new Cookie("Cookie", 3, R.raw.cookie),
             new MilkCarton("Milk Carton", 7, R.raw.milkcarton),
             new WhippedCream("Whipped Cream", 12, R.raw.cannedwhipcream),
-            new PoisonBottle("Poison Bottle", -5, R.raw.poisonbottle),
             new BlueberryMuffin("Blueberry Muffin", 4, R.raw.blueberrymuffin),
-            new Snowman("Snowman", -10, R.raw.snowman),
             new CoffeeCup("Coffee Cup", 6, R.raw.coffeecup)
     ));
     private Random random = new Random();
-    private int numberOfitems = 9;
+    private int numberOfitems = 8;
     private ArrayList<ShoppingItem> displayedListitems = new ArrayList<>();
 
     @Override
@@ -58,7 +53,6 @@ public class TimeDisplayActivity extends AppCompatActivity {
 
         populateItemMap();
         prepearShoppingList();
-
     }
 
     /**
@@ -77,7 +71,6 @@ public class TimeDisplayActivity extends AppCompatActivity {
     private void populateItemMap() {
         for (int i = 0; i < 4; i++) {
             int item = random.nextInt(numberOfitems);
-            Log.w("Item number", "Item is " + item);
             while (displayedListitems.contains(shoppingItems.get(item))) {
                 item = random.nextInt(numberOfitems);
             }

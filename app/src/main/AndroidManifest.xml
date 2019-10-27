@@ -24,6 +24,7 @@
         <activity android:name=".activity.ARCoreActivity"></activity>
         <activity android:label="@string/app_name" android:name=".activity.LeaderboardActivity"/>
         <activity android:label="@string/app_name" android:name=".activity.ResultActivity"/>
+        <activity android:label="@string/app_name" android:name=".activity.RulesActivity"/>
 
     </application>
 
