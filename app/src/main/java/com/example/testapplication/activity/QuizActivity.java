@@ -110,6 +110,7 @@ public class QuizActivity extends AppCompatActivity {
             for (int i = 0; i < colourCheck.size(); i++) {
                 colourCheck.set(i, 0);
             }
+            findViewById(R.id.confirm).setBackground(getResources().getDrawable(R.drawable.next_page_confirm_f));
 
             resetOtherButtons(highlightedButton, 0);
             // Set the new questions
