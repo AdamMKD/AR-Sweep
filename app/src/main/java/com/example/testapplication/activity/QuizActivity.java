@@ -21,7 +21,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public static int SCORE = 0;
     private QuestionManager questionManager;
-    private int counter = 30;
+    private int counter = 60;
     private TextView textView;
     private ArrayList<Integer> colourCheck = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
     private Button highlightedButton;

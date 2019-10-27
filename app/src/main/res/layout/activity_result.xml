@@ -48,7 +48,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="112dp"
         android:layout_marginEnd="68dp"
-        android:text="Button"
+        android:text="Leader Board"
         android:onClick="highscorePage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterNameBox" />
@@ -59,10 +59,22 @@
         android:layout_height="80dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="112dp"
-        android:text="Button"
+        android:text="Home"
         android:onClick="homePage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterNameBox" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:text="Submit"
+        android:onClick="highscorePage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toEndOf="@+id/enterNameBox"
+        app:layout_constraintTop_toBottomOf="@+id/gameOverText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
