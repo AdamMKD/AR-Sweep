@@ -2,6 +2,7 @@ package com.example.testapplication;
 
 public class ShoppingItem {
 
+    public int imageValue;
     private String name;
     private int points;
     private int resource;
