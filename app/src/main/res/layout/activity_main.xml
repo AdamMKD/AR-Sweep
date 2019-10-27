@@ -5,10 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
-
-
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".activity.MainActivity"
+        app:layout_constraintTop_toTopOf="parent" >
 
     <Button
         android:id="@+id/playButton"
@@ -35,6 +33,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="12dp"
         android:text="LeaderBoard"
+        android:onClick="leaderBoardPage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/howTo" />
 

@@ -1,4 +1,6 @@
-package com.example.testapplication;
+package com.example.testapplication.shopping;
+
+import com.example.testapplication.R;
 
 public class MilkCarton extends ShoppingItem {
 

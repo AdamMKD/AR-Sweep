@@ -1,6 +1,6 @@
-package com.example.testapplication;
+package com.example.testapplication.shopping;
 
-import java.net.URL;
+import com.example.testapplication.R;
 
 public class Banana extends ShoppingItem {
 

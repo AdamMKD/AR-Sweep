@@ -1,4 +1,4 @@
-package com.example.testapplication;
+package com.example.testapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.testapplication.BlueberryMuffin;
+import com.example.testapplication.CoffeeCup;
+import com.example.testapplication.PoisonBottle;
+import com.example.testapplication.R;
+import com.example.testapplication.Snowman;
+import com.example.testapplication.shopping.Banana;
+import com.example.testapplication.shopping.Chocolate;
+import com.example.testapplication.shopping.Cookie;
+import com.example.testapplication.shopping.MilkCarton;
+import com.example.testapplication.shopping.ShoppingItem;
+import com.example.testapplication.shopping.WhippedCream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,21 +59,7 @@ public class TimeDisplayActivity extends AppCompatActivity {
         populateItemMap();
         prepearShoppingList();
 
-//        // Part of the back button functionality.
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // This is for the back button
-//        QuizActivity.SCORE = 0;
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                finish();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     /**
      * This takes you to the AR game part of the app.
@@ -69,7 +67,7 @@ public class TimeDisplayActivity extends AppCompatActivity {
      * @param view the view that the button needs.
      */
     public void arPage(View view) {
-        Intent intent = new Intent(this, ARCoreTest.class);
+        Intent intent = new Intent(this, ARCoreActivity.class);
         startActivity(intent);
     }
 
