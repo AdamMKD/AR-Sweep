@@ -1,14 +1,16 @@
-package com.example.testapplication;
+package com.example.testapplication.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.testapplication.QuestionManager;
+import com.example.testapplication.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +32,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        SCORE = 0;
         // This is the SCORE based on the questions that the user had
         textView = findViewById(R.id.score);
         textView.setText("Score is " + SCORE);

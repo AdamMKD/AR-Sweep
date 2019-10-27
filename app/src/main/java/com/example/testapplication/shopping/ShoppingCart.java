@@ -1,6 +1,5 @@
-package com.example.testapplication;
+package com.example.testapplication.shopping;
 
-import java.lang.annotation.AnnotationTypeMismatchException;
 import java.util.ArrayList;
 
 public class ShoppingCart {

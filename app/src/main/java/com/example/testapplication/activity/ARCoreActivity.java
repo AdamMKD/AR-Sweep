@@ -1,4 +1,4 @@
-package com.example.testapplication;
+package com.example.testapplication.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.testapplication.R;
 import com.google.ar.core.*;
 import com.google.ar.sceneform.*;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -19,9 +21,9 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import java.util.Iterator;
 import java.util.Random;
 
-public class ARCoreTest extends AppCompatActivity {
+public class ARCoreActivity extends AppCompatActivity {
 
-    private static final String TAG = ARCoreTest.class.getSimpleName();
+    private static final String TAG = ARCoreActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
 
     private ArFragment arFragment;

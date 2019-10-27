@@ -13,15 +13,18 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <meta-data android:name="com.google.ar.core" android:value="required" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name=".QuizActivity"/>
-        <activity android:label="@string/app_name" android:name=".TimeDisplayActivity"/>
-        <activity android:name=".ARCoreTest"></activity>
+        <activity android:label="@string/app_name" android:name=".activity.QuizActivity"/>
+        <activity android:label="@string/app_name" android:name=".activity.TimeDisplayActivity"/>
+        <activity android:name=".activity.ARCoreActivity"></activity>
+        <activity android:label="@string/app_name" android:name=".activity.LeaderboardActivity"/>
+        <activity android:label="@string/app_name" android:name=".activity.ResultActivity"/>
+
     </application>
 
 </manifest>
