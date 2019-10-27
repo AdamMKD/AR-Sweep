@@ -26,7 +26,6 @@ public class QuizActivity extends AppCompatActivity {
     private ArrayList<Integer> colourCheck = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
     private Button highlightedButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

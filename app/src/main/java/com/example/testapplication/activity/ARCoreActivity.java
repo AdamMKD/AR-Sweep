@@ -3,11 +3,14 @@ package com.example.testapplication.activity;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +38,10 @@ public class ARCoreActivity extends AppCompatActivity {
     private ArrayList<ShoppingItem> spawnedList;
     private Random randomGenerator;
 
-    private boolean readyToSpawnItems;
+    private boolean readyToSpawnItems = true;
+    ShoppingItem shoppingItem = null;
+
+    private long counter;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -52,19 +58,20 @@ public class ARCoreActivity extends AppCompatActivity {
         new CountDownTimer(30 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if (millisUntilFinished % 2000 == 0) {
+                if (millisUntilFinished % 3000 == 0) {
                     spawnedList.clear();
-                } else if (millisUntilFinished % 1000 == 0) {
-                    readyToSpawnItems = false;
-                } else {
                     readyToSpawnItems = true;
+                    //counttime.setText((int)millisUntilFinished);
+                } else if (millisUntilFinished % 2000 == 0) {
+                    readyToSpawnItems = false;
                 }
+
             }
 
             @Override
             public void onFinish() {
                 cancel();
-                start();
+                //redirectToFinalScorePage(findViewById(android.R.id.content));
             }
         }.start();
 
@@ -113,46 +120,7 @@ public class ARCoreActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
-//        arFragment.setOnTapArPlaneListener(new Node.OnTapListener() {
-//            @Override
-//            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-//                if (anchorNode.getAnchor() != null) {
-//                    arFragment.getArSceneView().getScene().removeChild(anchorNode);
-//                    anchorNode.getAnchor().detach();
-//                    anchorNode.setParent(null);
-//                }
-//            }
-//        });
-
-
     }
-
-//    private void handleOnTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
-//        Log.d(TAG, "handleOnTouch");
-//        // First call ArFragment's listener to handle TransformableNodes.
-//        arFragment.onPeekTouch(hitTestResult, motionEvent);
-//
-//        //We are only interested in the ACTION_UP events - anything else just return
-//        if (motionEvent.getAction() != MotionEvent.ACTION_UP) {
-//            return;
-//        }
-//
-//        // Check for touching a Sceneform node
-//        if (hitTestResult.getNode() != null) {
-//            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
-//            Node hitNode1 = hitTestResult.getNode();
-//
-//            Toast.makeText(ARCoreTest.this, "We've hit Andy!!", Toast.LENGTH_SHORT).show();
-//            arFragment.getArSceneView().getScene().removeChild(hitNode1);
-//            hitNode1.getAnchor().detach();
-//            hitNode1.setParent(null);
-//            hitNode1 = null;
-//
-//        }
-//    }
-
 
     private AnchorNode positionObjectOnPane(Plane plane) {
         float maxX = plane.getExtentX() * 2;
@@ -187,7 +155,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(bananaRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
+                shoppingItem = new Banana("Banana", 0, R.raw.banana);
+                spawnedList.add(shoppingItem);
                 break;
 
             case 2:
@@ -198,7 +167,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(cookieRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Cookie("Cookie", 0, R.raw.cookie));
+                shoppingItem = new Cookie("Cookie", 0, R.raw.cookie);
+                spawnedList.add(shoppingItem);
                 break;
 
             case 3:
@@ -209,7 +179,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(milkCartonRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new MilkCarton("Milk Carton", 0, R.raw.milkcarton));
+                shoppingItem = new MilkCarton("Milk Carton", 0, R.raw.milkcarton);
+                spawnedList.add(shoppingItem);
                 break;
             case 4:
                 transformableNode.getScaleController().setMinScale(0.08f);
@@ -219,7 +190,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(whippedCreamRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new WhippedCream("Whipped Cream", 0, R.raw.cannedwhipcream));
+                shoppingItem = new WhippedCream("Whipped Cream", 0, R.raw.cannedwhipcream);
+                spawnedList.add(shoppingItem);
                 break;
             case 5:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -229,7 +201,9 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(chocolateRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Chocolate("Chocolate", 0, R.raw.chocolatebar));
+                shoppingItem = new Chocolate("Chocolate", 0, R.raw.chocolatebar);
+                spawnedList.add(shoppingItem);
+
                 break;
             case 6:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -239,7 +213,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(poisonBottleRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new PoisonBottle("Poison Bottle", 0, R.raw.poisonbottle));
+                shoppingItem = new PoisonBottle("Poison Bottle", 0, R.raw.poisonbottle);
+                spawnedList.add(shoppingItem);
                 break;
             case 7:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -249,7 +224,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(blueberryMuffinRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new BlueberryMuffin("Blueberry Muffin", 0, R.raw.blueberrymuffin));
+                shoppingItem = new BlueberryMuffin("Blueberry Muffin", 0, R.raw.blueberrymuffin);
+                spawnedList.add(shoppingItem);
                 break;
             case 8:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -259,7 +235,8 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(snowmanRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Snowman("Snowman", 0, R.raw.snowman));
+                shoppingItem = new Snowman("Snowman", 0, R.raw.snowman);
+                spawnedList.add(shoppingItem);
                 break;
             case 9:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -269,7 +246,9 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(coffeecupRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new CoffeeCup("Coffee Cup", 0, R.raw.coffeecup));
+                shoppingItem = new Banana("Coffee Cup", 0, R.raw.coffeecup);
+                spawnedList.add(shoppingItem);
+
                 break;
         }
 
@@ -281,6 +260,22 @@ public class ARCoreActivity extends AppCompatActivity {
                     anchorNode.getAnchor().detach();
                     anchorNode.setParent(null);
                 }
+
+                if (TimeDisplayActivity.shoppingListMap.containsKey(shoppingItem)) {
+                    int amountLeft = TimeDisplayActivity.shoppingListMap.get(shoppingItem);
+
+                    if (amountLeft > 1) {
+                        TimeDisplayActivity.shoppingListMap.put(shoppingItem, --amountLeft);
+                    }
+
+                    userItemList.add(shoppingItem);
+
+                    //increment points
+                }
+                else {
+                    //decrease time
+                }
+
             }
         });
     }
@@ -416,4 +411,10 @@ public class ARCoreActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public void redirectToFinalScorePage(View view) {
+        Intent intent = new Intent(this, ResultActivity.class);
+        startActivity(intent);
+    }
+
 }
