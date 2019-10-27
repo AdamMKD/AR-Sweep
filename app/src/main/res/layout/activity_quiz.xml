@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.QuizActivity"
     android:id="@+id/container"
-    android:background="#d83f87">
+    android:background="#FFB17A">
 
 
     <TextView

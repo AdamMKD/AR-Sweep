@@ -151,10 +151,12 @@ public class QuizActivity extends AppCompatActivity {
     private void changeBackground(Button button, int colourState) {
         if (colourCheck.get(colourState) % 2 == 0) {
             button.setBackground(getResources().getDrawable(R.drawable.roundedbutton2));
+            findViewById(R.id.confirm).setBackground(getResources().getDrawable(R.drawable.next_page_confirm_t));
             colourCheck.set(colourState, 1);
             highlightedButton = button;
         } else {
             button.setBackground(getResources().getDrawable(R.drawable.roundedbutton));
+            findViewById(R.id.confirm).setBackground(getResources().getDrawable(R.drawable.next_page_confirm_f));
             colourCheck.set(colourState, 0);
             highlightedButton = null;
         }
