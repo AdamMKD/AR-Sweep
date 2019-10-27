@@ -12,7 +12,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.testapplication.BlueberryMuffin;
+import com.example.testapplication.PoisonBottle;
 import com.example.testapplication.R;
+import com.example.testapplication.Snowman;
+import com.example.testapplication.shopping.Banana;
+import com.example.testapplication.shopping.Chocolate;
+import com.example.testapplication.shopping.Cookie;
+import com.example.testapplication.shopping.MilkCarton;
+import com.example.testapplication.shopping.ShoppingItem;
+import com.example.testapplication.shopping.WhippedCream;
 import com.google.ar.core.*;
 import com.google.ar.sceneform.*;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -238,7 +247,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(poisonBottleRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new PoisonBottle("Poison Bottle", 0, R.raw.banana));
+                spawnedList.add(new PoisonBottle("Poison Bottle", 0, R.raw.poisonbottle));
                 break;
             case 7:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -248,7 +257,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(blueberryMuffinRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new BlueberryMuffin("Blueberry Muffin", 0, R.raw.banana));
+                spawnedList.add(new BlueberryMuffin("Blueberry Muffin", 0, R.raw.blueberrymuffin));
                 break;
             case 8:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -258,7 +267,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(snowmanRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Snowman("Snowman", 0, R.raw.banana));
+                spawnedList.add(new Snowman("Snowman", 0, R.raw.snowman));
                 break;
             case 9:
                 transformableNode.getScaleController().setMinScale(0.20f);

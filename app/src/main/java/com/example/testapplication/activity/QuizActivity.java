@@ -55,9 +55,6 @@ public class QuizActivity extends AppCompatActivity {
         }.start();
 
         setQuestion();
-
-        // Part of the back button functionality.
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void timedisplaypage(View view) {
