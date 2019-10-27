@@ -12,16 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.testapplication.BlueberryMuffin;
-import com.example.testapplication.PoisonBottle;
+import com.example.testapplication.shopping.*;
 import com.example.testapplication.R;
-import com.example.testapplication.Snowman;
-import com.example.testapplication.shopping.Banana;
-import com.example.testapplication.shopping.Chocolate;
-import com.example.testapplication.shopping.Cookie;
-import com.example.testapplication.shopping.MilkCarton;
-import com.example.testapplication.shopping.ShoppingItem;
-import com.example.testapplication.shopping.WhippedCream;
 import com.google.ar.core.*;
 import com.google.ar.sceneform.*;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -206,7 +198,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(cookieRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Cookie("Cookie", 0, R.raw.banana));
+                spawnedList.add(new Cookie("Cookie", 0, R.raw.cookie));
                 break;
 
             case 3:
@@ -217,7 +209,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(milkCartonRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new MilkCarton("Milk Carton", 0, R.raw.banana));
+                spawnedList.add(new MilkCarton("Milk Carton", 0, R.raw.milkcarton));
                 break;
             case 4:
                 transformableNode.getScaleController().setMinScale(0.08f);
@@ -227,7 +219,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(whippedCreamRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new WhippedCream("Whipped Cream", 0, R.raw.banana));
+                spawnedList.add(new WhippedCream("Whipped Cream", 0, R.raw.cannedwhipcream));
                 break;
             case 5:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -237,7 +229,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(chocolateRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Chocolate("Chocolate", 0, R.raw.banana));
+                spawnedList.add(new Chocolate("Chocolate", 0, R.raw.chocolatebar));
                 break;
             case 6:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -277,7 +269,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(coffeecupRenderable);
                 transformableNode.select();
 
-                spawnedList.add(new Banana("Coffee Cup", 0, R.raw.banana));
+                spawnedList.add(new CoffeeCup("Coffee Cup", 0, R.raw.coffeecup));
                 break;
         }
 

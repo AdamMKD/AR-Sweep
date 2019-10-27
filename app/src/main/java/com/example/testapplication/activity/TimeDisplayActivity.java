@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.testapplication.BlueberryMuffin;
-import com.example.testapplication.CoffeeCup;
-import com.example.testapplication.PoisonBottle;
+import com.example.testapplication.shopping.BlueberryMuffin;
+import com.example.testapplication.shopping.CoffeeCup;
+import com.example.testapplication.shopping.PoisonBottle;
 import com.example.testapplication.R;
-import com.example.testapplication.Snowman;
+import com.example.testapplication.shopping.Snowman;
 import com.example.testapplication.shopping.Banana;
 import com.example.testapplication.shopping.Chocolate;
 import com.example.testapplication.shopping.Cookie;
