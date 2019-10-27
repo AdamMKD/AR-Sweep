@@ -20,6 +20,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
+        android:background="#ffffff"
+        android:descendantFocusability="blocksDescendants"
+        android:paddingLeft="5dp"
+        android:paddingTop="12dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/play"
+            />
+
+        <TextView
+            android:id="@+id/nameRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/pointRank"
+            android:layout_width="117dp"
+            android:layout_height="315dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/nameBoard"
         android:layout_width="117dp"
@@ -44,24 +84,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderboardText" />
 
-    <TextView
-        android:id="@+id/nameRank"
-        android:layout_width="117dp"
-        android:layout_height="315dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="44dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameBoard" />
 
-    <TextView
-        android:id="@+id/pointRank"
-        android:layout_width="117dp"
-        android:layout_height="315dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="68dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scorePointBoard" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
