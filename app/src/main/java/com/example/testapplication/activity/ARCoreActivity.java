@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.widget.TextView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.google.ar.sceneform.*;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+
 import java.util.Iterator;
 import java.util.Random;
 import java.util.*;
@@ -33,12 +35,17 @@ public class ARCoreActivity extends AppCompatActivity {
 
     private ArFragment arFragment;
     private ModelRenderable bananaRenderable, chocolateRenderable, whippedCreamRenderable, milkCartonRenderable, cookieRenderable,
-                            poisonBottleRenderable, blueberryMuffinRenderable, snowmanRenderable, coffeecupRenderable;
+            poisonBottleRenderable, blueberryMuffinRenderable, snowmanRenderable, coffeecupRenderable;
     private ArrayList<ShoppingItem> userItemList;
     private ArrayList<ShoppingItem> spawnedList;
     private Random randomGenerator;
 
     private boolean readyToSpawnItems = true;
+
+    private long minutes;
+    private long seconds;
+
+    private TextView arCountdown;
     ShoppingItem shoppingItem = null;
 
     private long counter;
@@ -55,7 +62,7 @@ public class ARCoreActivity extends AppCompatActivity {
         spawnedList = new ArrayList<ShoppingItem>();
 
         //
-        new CountDownTimer(30 * 1000, 1000) {
+        CountDownTimer spawnTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 if (millisUntilFinished % 3000 == 0) {
@@ -78,6 +85,32 @@ public class ARCoreActivity extends AppCompatActivity {
         randomGenerator = new Random();
 
         setContentView(R.layout.activity_arcore_test2);
+
+        arCountdown = findViewById(R.id.countdownar);
+
+        CountDownTimer clockTimer = new CountDownTimer(30 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+//                if (millisUntilFinished == 0) {
+//                    cancel();
+//                }
+                seconds = millisUntilFinished / 1000;
+                while (seconds > 60) {
+                    minutes++;
+                    seconds -= 60;
+                }
+                seconds = millisUntilFinished / 1000;
+                minutes = seconds / 60;
+                setCountdownTimerContent(minutes, seconds);
+            }
+
+            @Override
+            public void onFinish() {
+                spawnTimer.cancel();
+                cancel();
+            }
+        }.start();
+
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
         // When you build a Renderable, Sceneform loads its resources in the background while returning
@@ -121,6 +154,43 @@ public class ARCoreActivity extends AppCompatActivity {
                 }
         );
     }
+
+    private void setCountdownTimerContent(long minutes, long seconds) {
+        String minutesText = "" + minutes;
+        String secondsText = "" + seconds;
+        if (minutes < 10) {
+            minutesText = "0" + minutes;
+        }
+        if (seconds < 10) {
+            secondsText = "0" + seconds;
+        }
+        arCountdown.setText(minutesText + ":" + secondsText);
+    }
+
+//    private void handleOnTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
+//        Log.d(TAG, "handleOnTouch");
+//        // First call ArFragment's listener to handle TransformableNodes.
+//        arFragment.onPeekTouch(hitTestResult, motionEvent);
+//
+//        //We are only interested in the ACTION_UP events - anything else just return
+//        if (motionEvent.getAction() != MotionEvent.ACTION_UP) {
+//            return;
+//        }
+//
+//        // Check for touching a Sceneform node
+//        if (hitTestResult.getNode() != null) {
+//            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
+//            Node hitNode1 = hitTestResult.getNode();
+//
+//            Toast.makeText(ARCoreTest.this, "We've hit Andy!!", Toast.LENGTH_SHORT).show();
+//            arFragment.getArSceneView().getScene().removeChild(hitNode1);
+//            hitNode1.getAnchor().detach();
+//            hitNode1.setParent(null);
+//            hitNode1 = null;
+//
+//        }
+//    }
+
 
     private AnchorNode positionObjectOnPane(Plane plane) {
         float maxX = plane.getExtentX() * 2;
@@ -271,8 +341,7 @@ public class ARCoreActivity extends AppCompatActivity {
                     userItemList.add(shoppingItem);
 
                     //increment points
-                }
-                else {
+                } else {
                     //decrease time
                 }
 
