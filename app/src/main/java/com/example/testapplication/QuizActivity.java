@@ -155,18 +155,18 @@ public class QuizActivity extends AppCompatActivity {
 
     private void changeBackground(Button button, int colourState) {
         if (colourCheck.get(colourState) % 2 == 0) {
-            button.setBackgroundColor(Color.argb(106, 185, 111, 1));
+            button.setBackground(getResources().getDrawable(R.drawable.roundedbutton2));
             colourCheck.set(colourState, 1);
             highlightedButton = button;
         } else {
-            button.setBackgroundColor(Color.LTGRAY);
+            button.setBackground(getResources().getDrawable(R.drawable.roundedbutton));
             colourCheck.set(colourState, 0);
             highlightedButton = null;
         }
     }
 
     private void resetOtherButtons(Button button, int colourState) {
-        button.setBackgroundColor(Color.LTGRAY);
+        button.setBackground(getResources().getDrawable(R.drawable.roundedbutton));
         colourCheck.set(colourState, 0);
     }
 
