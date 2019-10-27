@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ARCoreActivity extends AppCompatActivity {
 
@@ -39,6 +42,7 @@ public class ARCoreActivity extends AppCompatActivity {
     private ArrayList<ShoppingItem> userItemList;
     private ArrayList<ShoppingItem> spawnedList;
     private Random randomGenerator;
+    public static int TOTALSCORE;
 
     private boolean readyToSpawnItems = true;
 
@@ -47,6 +51,16 @@ public class ARCoreActivity extends AppCompatActivity {
 
     private TextView arCountdown;
     ShoppingItem shoppingItem = null;
+
+    private ImageView userShoppingItem1;
+    private ImageView userShoppingItem2;
+    private ImageView userShoppingItem3;
+    private ImageView userShoppingItem4;
+
+    private TextView qunatity1;
+    private TextView qunatity2;
+    private TextView qunatity3;
+    private TextView qunatity4;
 
     private long counter;
 
@@ -78,7 +92,6 @@ public class ARCoreActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 cancel();
-                //redirectToFinalScorePage(findViewById(android.R.id.content));
             }
         }.start();
 
@@ -86,9 +99,40 @@ public class ARCoreActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_arcore_test2);
 
+        userShoppingItem1 = (ImageView) findViewById(R.id.shoppingitem1);
+        userShoppingItem2 = (ImageView) findViewById(R.id.shoppingitem2);
+        userShoppingItem3 = (ImageView) findViewById(R.id.shoppingitem3);
+        userShoppingItem4 = (ImageView) findViewById(R.id.shoppingitem4);
+
+        qunatity1 = (TextView) findViewById(R.id.item1quantity);
+        qunatity2 = (TextView) findViewById(R.id.item2quantity);
+        qunatity3 = (TextView) findViewById(R.id.item3quantity);
+        qunatity4 = (TextView) findViewById(R.id.item4quantity);
+
+        List<ShoppingItem> tempList = new ArrayList<ShoppingItem>();
+        int[] templistAmount = new int[4];
+        AtomicInteger i = new AtomicInteger();
+        TimeDisplayActivity.shoppingListMap.forEach((shoppingItem1, integer) -> {
+                    tempList.add(shoppingItem1);
+                    templistAmount[i.get()] = integer;
+                    i.getAndIncrement();
+                }
+        );
+        userShoppingItem1.setImageResource(tempList.get(0).imageValue);
+        userShoppingItem2.setImageResource(tempList.get(1).imageValue);
+        userShoppingItem3.setImageResource(tempList.get(2).imageValue);
+        userShoppingItem4.setImageResource(tempList.get(3).imageValue);
+
+        qunatity1.setText("x" + templistAmount[0]);
+        qunatity1.setText("x" + templistAmount[1]);
+        qunatity1.setText("x" + templistAmount[2]);
+        qunatity1.setText("x" + templistAmount[3]);
+
+
+
         arCountdown = findViewById(R.id.countdownar);
 
-        CountDownTimer clockTimer = new CountDownTimer(30 * 1000, 1000) {
+        CountDownTimer clockTimer = new CountDownTimer(QuizActivity.SCORE * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 //                if (millisUntilFinished == 0) {
@@ -108,6 +152,7 @@ public class ARCoreActivity extends AppCompatActivity {
             public void onFinish() {
                 spawnTimer.cancel();
                 cancel();
+                redirectToFinalScorePage(findViewById(R.id.ux_fragment));
             }
         }.start();
 
@@ -225,7 +270,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(bananaRenderable);
                 transformableNode.select();
 
-                shoppingItem = new Banana("Banana", 0, R.raw.banana);
+                shoppingItem = new Banana("Banana", 2, R.raw.banana);
                 spawnedList.add(shoppingItem);
                 break;
 
@@ -237,7 +282,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(cookieRenderable);
                 transformableNode.select();
 
-                shoppingItem = new Cookie("Cookie", 0, R.raw.cookie);
+                shoppingItem = new Cookie("Cookie", 5, R.raw.cookie);
                 spawnedList.add(shoppingItem);
                 break;
 
@@ -249,7 +294,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(milkCartonRenderable);
                 transformableNode.select();
 
-                shoppingItem = new MilkCarton("Milk Carton", 0, R.raw.milkcarton);
+                shoppingItem = new MilkCarton("Milk Carton", 20, R.raw.milkcarton);
                 spawnedList.add(shoppingItem);
                 break;
             case 4:
@@ -260,7 +305,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(whippedCreamRenderable);
                 transformableNode.select();
 
-                shoppingItem = new WhippedCream("Whipped Cream", 0, R.raw.cannedwhipcream);
+                shoppingItem = new WhippedCream("Whipped Cream", 12, R.raw.cannedwhipcream);
                 spawnedList.add(shoppingItem);
                 break;
             case 5:
@@ -271,7 +316,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(chocolateRenderable);
                 transformableNode.select();
 
-                shoppingItem = new Chocolate("Chocolate", 0, R.raw.chocolatebar);
+                shoppingItem = new Chocolate("Chocolate", 8, R.raw.chocolatebar);
                 spawnedList.add(shoppingItem);
 
                 break;
@@ -283,7 +328,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(poisonBottleRenderable);
                 transformableNode.select();
 
-                shoppingItem = new PoisonBottle("Poison Bottle", 0, R.raw.poisonbottle);
+                shoppingItem = new PoisonBottle("Poison Bottle", 7, R.raw.poisonbottle);
                 spawnedList.add(shoppingItem);
                 break;
             case 7:
@@ -294,7 +339,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(blueberryMuffinRenderable);
                 transformableNode.select();
 
-                shoppingItem = new BlueberryMuffin("Blueberry Muffin", 0, R.raw.blueberrymuffin);
+                shoppingItem = new BlueberryMuffin("Blueberry Muffin", 8, R.raw.blueberrymuffin);
                 spawnedList.add(shoppingItem);
                 break;
             case 8:
@@ -305,7 +350,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(snowmanRenderable);
                 transformableNode.select();
 
-                shoppingItem = new Snowman("Snowman", 0, R.raw.snowman);
+                shoppingItem = new Snowman("Snowman", 5, R.raw.snowman);
                 spawnedList.add(shoppingItem);
                 break;
             case 9:
@@ -316,7 +361,7 @@ public class ARCoreActivity extends AppCompatActivity {
                 transformableNode.setRenderable(coffeecupRenderable);
                 transformableNode.select();
 
-                shoppingItem = new Banana("Coffee Cup", 0, R.raw.coffeecup);
+                shoppingItem = new Banana("Coffee Cup", 10, R.raw.coffeecup);
                 spawnedList.add(shoppingItem);
 
                 break;
@@ -341,8 +386,11 @@ public class ARCoreActivity extends AppCompatActivity {
                     userItemList.add(shoppingItem);
 
                     //increment points
+                    TOTALSCORE += shoppingItem.getPoints();
+
                 } else {
                     //decrease time
+
                 }
 
             }

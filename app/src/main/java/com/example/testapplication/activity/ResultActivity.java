@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ResultActivity extends AppCompatActivity {
 
     public static String USERNAME;
-    public static boolean pass;
-    public static int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,20 +20,16 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         TextView infoView = findViewById(R.id.gameOverText);
-        if (pass) {
-            infoView.setText("Congrats for completed the lists, your final score is " + score);
-        } else {
-            infoView.setText("Unfortunately you have not completed the list, your final score is  " + score);
-        }
+        infoView.setText("Your final score is " + ARCoreActivity.TOTALSCORE);
 
         TextView enterNameView = findViewById(R.id.enterNameView);
         enterNameView.setText("Please Enter you're name to be added to the leader board:");
 
-        EditText editText = findViewById(R.id.enterNameBox);
-        USERNAME = editText.getText().toString();
     }
 
     public void highscorePage(View view) {
+        EditText editText = findViewById(R.id.enterNameBox);
+        USERNAME = editText.getText().toString();
         Intent intent = new Intent(this, LeaderboardActivity.class);
         startActivity(intent);
     }

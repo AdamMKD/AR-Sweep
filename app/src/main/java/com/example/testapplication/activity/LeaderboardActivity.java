@@ -32,7 +32,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         leaderBoardMap.put("Abdi", 10);
         leaderBoardMap.put("Kumail", 8);
         leaderBoardMap.put("Haashim", 6);
-        leaderBoardMap.put(ResultActivity.USERNAME, QuizActivity.SCORE);
+        leaderBoardMap.put(ResultActivity.USERNAME, ARCoreActivity.TOTALSCORE);
 
         Map<String, Integer> sorted = leaderBoardMap
                 .entrySet()
