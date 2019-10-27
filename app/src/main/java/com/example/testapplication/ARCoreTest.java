@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -15,9 +16,9 @@ import com.google.ar.sceneform.*;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
-
 import java.util.Iterator;
 import java.util.Random;
+import java.util.*;
 
 public class ARCoreTest extends AppCompatActivity {
 
@@ -26,7 +27,11 @@ public class ARCoreTest extends AppCompatActivity {
 
     private ArFragment arFragment;
     private ModelRenderable bananaRenderable, chocolateRenderable, whippedCreamRenderable, milkCartonRenderable, cookieRenderable;
+    private ArrayList<ShoppingItem> userItemList;
+    private ArrayList<ShoppingItem> spawnedList;
     private Random randomGenerator;
+
+    private boolean readyToSpawnItems;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -36,6 +41,28 @@ public class ARCoreTest extends AppCompatActivity {
         if (!checkIsSupportedDeviceOrFinish(this)) {
             return;
         }
+
+        spawnedList = new ArrayList<ShoppingItem>();
+
+        //
+        new CountDownTimer(30 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (millisUntilFinished % 2000 == 0) {
+                    spawnedList.clear();
+                } else if (millisUntilFinished % 1000 == 0) {
+                    readyToSpawnItems = false;
+                } else {
+                    readyToSpawnItems = true;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                cancel();
+                start();
+            }
+        }.start();
 
         randomGenerator = new Random();
 
@@ -70,7 +97,10 @@ public class ARCoreTest extends AppCompatActivity {
                                 Plane plane = planes.next();
                                 if (plane.getTrackingState() == TrackingState.TRACKING) {
                                     arFragment.getPlaneDiscoveryController().hide();
-                                    createShoppingItem(1 + randomGenerator.nextInt(6), positionObjectOnPane(plane));
+
+                                    if (spawnedList.size() < 6 && readyToSpawnItems) {
+                                        createShoppingItem(1 + randomGenerator.nextInt(6), positionObjectOnPane(plane));
+                                    }
                                 }
                             }
 
@@ -79,7 +109,45 @@ public class ARCoreTest extends AppCompatActivity {
                     }
                 }
         );
+
+
+//        arFragment.setOnTapArPlaneListener(new Node.OnTapListener() {
+//            @Override
+//            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+//                if (anchorNode.getAnchor() != null) {
+//                    arFragment.getArSceneView().getScene().removeChild(anchorNode);
+//                    anchorNode.getAnchor().detach();
+//                    anchorNode.setParent(null);
+//                }
+//            }
+//        });
+
+
     }
+
+//    private void handleOnTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
+//        Log.d(TAG, "handleOnTouch");
+//        // First call ArFragment's listener to handle TransformableNodes.
+//        arFragment.onPeekTouch(hitTestResult, motionEvent);
+//
+//        //We are only interested in the ACTION_UP events - anything else just return
+//        if (motionEvent.getAction() != MotionEvent.ACTION_UP) {
+//            return;
+//        }
+//
+//        // Check for touching a Sceneform node
+//        if (hitTestResult.getNode() != null) {
+//            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
+//            Node hitNode1 = hitTestResult.getNode();
+//
+//            Toast.makeText(ARCoreTest.this, "We've hit Andy!!", Toast.LENGTH_SHORT).show();
+//            arFragment.getArSceneView().getScene().removeChild(hitNode1);
+//            hitNode1.getAnchor().detach();
+//            hitNode1.setParent(null);
+//            hitNode1 = null;
+//
+//        }
+//    }
 
 
     private AnchorNode positionObjectOnPane(Plane plane) {
@@ -114,6 +182,8 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(bananaRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
                 break;
 
             case 2:
@@ -123,6 +193,8 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(cookieRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
                 break;
 
             case 3:
@@ -132,6 +204,8 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(milkCartonRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
                 break;
             case 4:
                 transformableNode.getScaleController().setMinScale(0.08f);
@@ -140,6 +214,8 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(whippedCreamRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
                 break;
             case 5:
                 transformableNode.getScaleController().setMinScale(0.20f);
@@ -148,8 +224,21 @@ public class ARCoreTest extends AppCompatActivity {
                 transformableNode.setParent(anchorNode);
                 transformableNode.setRenderable(chocolateRenderable);
                 transformableNode.select();
+
+                spawnedList.add(new Banana("Banana", 0, R.raw.banana));
                 break;
         }
+
+        transformableNode.setOnTapListener(new Node.OnTapListener() {
+            @Override
+            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                if (anchorNode.getAnchor() != null) {
+                    arFragment.getArSceneView().getScene().removeChild(anchorNode);
+                    anchorNode.getAnchor().detach();
+                    anchorNode.setParent(null);
+                }
+            }
+        });
     }
 
     private void setUpShoppingModels() {
