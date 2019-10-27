@@ -3,7 +3,6 @@ package com.example.testapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -48,12 +47,8 @@ public class QuizActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-//                if (this.getClass().getSimpleName().equals("QuizActivity")) {
-                    // This takes you to a new page with your pass
-                    cancel();
-                    timeDisplayPage(findViewById(android.R.id.content));
-
-//                }
+                cancel();
+                timeDisplayPage(findViewById(android.R.id.content));
             }
         }.start();
 
