@@ -9,7 +9,6 @@ import java.util.Random;
 public class QuestionManager {
 
     private static ArrayList<Integer> questionPick = new ArrayList<>();
-    // todo: Need to sort out the questions so that it is not repeated.
     private Questions questions;
     private Random random = new Random();
     private ArrayList<String> displayOptions = new ArrayList<>();
