@@ -22,27 +22,27 @@ public class MainActivity extends AppCompatActivity {
 
         exitButton = findViewById(R.id.exit);
         //exitButton exit game
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                System.exit(0);
-            }
+        exitButton.setOnClickListener(v -> {
+            finish();
+            System.exit(0);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
     }
 
     public void quizPage(View view) {
         Intent intent = new Intent(this, QuizActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void leaderBoardPage(View view) {
         Intent intent = new Intent(this, LeaderboardActivity.class);
         startActivity(intent);
-    }
-
-    public void howToPlayPage(View view) {
-        Intent intent = new Intent(this, RulesActivity.class);
-        startActivity(intent);
+        finish();
     }
 }

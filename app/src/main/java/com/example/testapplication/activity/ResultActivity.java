@@ -27,15 +27,24 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void highscorePage(View view) {
         EditText editText = findViewById(R.id.enterNameBox);
         USERNAME = editText.getText().toString();
         Intent intent = new Intent(this, LeaderboardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void homePage(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

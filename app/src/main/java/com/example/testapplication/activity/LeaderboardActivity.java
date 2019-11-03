@@ -2,7 +2,6 @@ package com.example.testapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.testapplication.R;
@@ -63,21 +62,12 @@ public class LeaderboardActivity extends AppCompatActivity {
             score.remove(score.get(score.size() - 1));
         }
         score.forEach(integer -> scoreTextView.append(String.format("%d\n", integer)));
-
-        // Part of the back button functionality.
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // This is for the back button
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

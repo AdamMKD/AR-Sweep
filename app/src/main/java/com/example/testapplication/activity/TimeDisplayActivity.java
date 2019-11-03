@@ -55,6 +55,13 @@ public class TimeDisplayActivity extends AppCompatActivity {
         prepearShoppingList();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     /**
      * This takes you to the AR game part of the app.
      *
@@ -63,6 +70,7 @@ public class TimeDisplayActivity extends AppCompatActivity {
     public void arPage(View view) {
         Intent intent = new Intent(this, ARCoreActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**

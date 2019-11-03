@@ -2,22 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.QuizActivity"
-    android:id="@+id/container"
-    android:background="#FFB17A">
-
+    android:background="@color/colorPrimary"
+    tools:context=".activity.QuizActivity">
 
     <TextView
         android:id="@+id/countdown"
         android:layout_width="173dp"
         android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="44dp"
-        android:alpha="0.6"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_timer"
         android:gravity="center"
         android:text="00:00"
@@ -27,55 +23,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/gameOverText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="#050505"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countdown" />
+
     <Button
-        android:id="@+id/button1"
-        android:layout_width="307dp"
+        android:id="@+id/option1"
+        android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/roundedbutton"
         android:onClick="pickButton"
-        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/question" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="307dp"
+        android:id="@+id/option2"
+        android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="60dp"
-        android:layout_weight="1"
         android:background="@drawable/roundedbutton"
         android:onClick="pickButton"
-        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option1" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="307dp"
+        android:id="@+id/option3"
+        android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="60dp"
         android:background="@drawable/roundedbutton"
         android:onClick="pickButton"
-        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button1" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option2" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="307dp"
+        android:id="@+id/option4"
+        android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="60dp"
-        android:layout_weight="1"
         android:background="@drawable/roundedbutton"
         android:onClick="pickButton"
-        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option3" />
 
     <Button
         android:id="@+id/confirm"
@@ -83,35 +94,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_weight="1"
         android:background="@drawable/next_page_confirm_f"
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-    <TextView
-        android:id="@+id/question"
-        android:layout_width="402dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countdown" />
-
-    <TextView
-        android:id="@+id/gameOverText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textColor="#050505"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/option4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

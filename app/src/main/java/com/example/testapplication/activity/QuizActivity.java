@@ -36,11 +36,12 @@ public class QuizActivity extends AppCompatActivity {
         textView = findViewById(R.id.gameOverText);
         textView.setText("Score is " + SCORE);
         // The timer for the challenge.
-        final TextView counttime = findViewById(R.id.countdown);
+        final TextView countTime = findViewById(R.id.countdown);
         new CountDownTimer(counter * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                counttime.setText("Timer left is " + counter);
+                String timeLeft = "00:" + (counter < 10 ? "0" + counter : counter);
+                countTime.setText(timeLeft);
                 counter--;
             }
 
@@ -54,9 +55,15 @@ public class QuizActivity extends AppCompatActivity {
         setQuestion();
     }
 
+    // This is to disable the back button so the user can't leave mid way during the quiz
+    @Override
+    public void onBackPressed() {
+    }
+
     public void timeDisplayPage(View view) {
         Intent intent = new Intent(this, TimeDisplayActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -67,29 +74,29 @@ public class QuizActivity extends AppCompatActivity {
      */
     public void pickButton(View view) {
         switch (view.getId()) {
-            case R.id.button1:
-                changeBackground(findViewById(R.id.button1), 0);
-                resetOtherButtons(findViewById(R.id.button2), 1);
-                resetOtherButtons(findViewById(R.id.button3), 2);
-                resetOtherButtons(findViewById(R.id.button4), 3);
+            case R.id.option1:
+                changeBackground(findViewById(R.id.option1), 0);
+                resetOtherButtons(findViewById(R.id.option2), 1);
+                resetOtherButtons(findViewById(R.id.option3), 2);
+                resetOtherButtons(findViewById(R.id.option4), 3);
                 break;
-            case R.id.button2:
-                resetOtherButtons(findViewById(R.id.button1), 0);
-                changeBackground(findViewById(R.id.button2), 1);
-                resetOtherButtons(findViewById(R.id.button3), 2);
-                resetOtherButtons(findViewById(R.id.button4), 3);
+            case R.id.option2:
+                resetOtherButtons(findViewById(R.id.option1), 0);
+                changeBackground(findViewById(R.id.option2), 1);
+                resetOtherButtons(findViewById(R.id.option3), 2);
+                resetOtherButtons(findViewById(R.id.option4), 3);
                 break;
-            case R.id.button3:
-                resetOtherButtons(findViewById(R.id.button1), 0);
-                resetOtherButtons(findViewById(R.id.button2), 1);
-                changeBackground(findViewById(R.id.button3), 2);
-                resetOtherButtons(findViewById(R.id.button4), 3);
+            case R.id.option3:
+                resetOtherButtons(findViewById(R.id.option1), 0);
+                resetOtherButtons(findViewById(R.id.option2), 1);
+                changeBackground(findViewById(R.id.option3), 2);
+                resetOtherButtons(findViewById(R.id.option4), 3);
                 break;
-            case R.id.button4:
-                resetOtherButtons(findViewById(R.id.button1), 0);
-                resetOtherButtons(findViewById(R.id.button2), 1);
-                resetOtherButtons(findViewById(R.id.button3), 2);
-                changeBackground(findViewById(R.id.button4), 3);
+            case R.id.option4:
+                resetOtherButtons(findViewById(R.id.option1), 0);
+                resetOtherButtons(findViewById(R.id.option2), 1);
+                resetOtherButtons(findViewById(R.id.option3), 2);
+                changeBackground(findViewById(R.id.option4), 3);
                 break;
         }
     }
@@ -122,10 +129,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private void setQuestion() {
         TextView question = findViewById(R.id.question);
-        Button option1 = findViewById(R.id.button1);
-        Button option2 = findViewById(R.id.button2);
-        Button option3 = findViewById(R.id.button3);
-        Button option4 = findViewById(R.id.button4);
+        Button option1 = findViewById(R.id.option1);
+        Button option2 = findViewById(R.id.option2);
+        Button option3 = findViewById(R.id.option3);
+        Button option4 = findViewById(R.id.option4);
 
         questionManager = new QuestionManager();
         question.setText(questionManager.getQuestion());
