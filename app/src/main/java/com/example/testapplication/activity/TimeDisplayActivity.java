@@ -2,6 +2,7 @@ package com.example.testapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class TimeDisplayActivity extends AppCompatActivity {
             new CoffeeCup("Coffee Cup", 6, R.raw.coffeecup)
     ));
     private Random random = new Random();
-    private int numberOfitems = 7;
+    private int numberOfitems = shoppingItems.size();
     private ArrayList<ShoppingItem> displayedListitems = new ArrayList<>();
 
     @Override
@@ -46,6 +47,8 @@ public class TimeDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_time_display);
 
         TextView scoreTextView = findViewById(R.id.scoreText);
+        // Todo: have a check here to see if the user scored any points, if not display a
+        //  different screen without the list and button.
         scoreTextView.setText("Congratulation, your score is : " + QuizActivity.SCORE);
 
         TextView shoppingListTextView = findViewById(R.id.shoppingList);
