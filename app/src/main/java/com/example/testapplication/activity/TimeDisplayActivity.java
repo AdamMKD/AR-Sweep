@@ -2,7 +2,6 @@ package com.example.testapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,18 +43,27 @@ public class TimeDisplayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_display);
+        if (QuizActivity.SCORE == 0) {
+            setContentView(R.layout.activity_time_display_fail);
 
-        TextView scoreTextView = findViewById(R.id.scoreText);
-        // Todo: have a check here to see if the user scored any points, if not display a
-        //  different screen without the list and button.
-        scoreTextView.setText("Congratulation, your score is : " + QuizActivity.SCORE);
+            TextView scoreTextView = findViewById(R.id.scoreText);
+            scoreTextView.setText("Unfortunately, you haven't scored any points.");
+        } else {
+            setContentView(R.layout.activity_time_display_pass);
 
-        TextView shoppingListTextView = findViewById(R.id.shoppingList);
-        shoppingListTextView.setText("This is you shopping list:");
+            TextView scoreTextView = findViewById(R.id.scoreText);
+            scoreTextView.setText("Congratulation, your score is : " + QuizActivity.SCORE);
 
-        populateItemMap();
-        prepearShoppingList();
+            TextView shoppingListTextView = findViewById(R.id.shoppingList);
+            shoppingListTextView.setText("This is you shopping list:");
+
+            populateItemMap();
+            prepearShoppingList();
+        }
+    }
+
+    public void goHomePage(View view) {
+        onBackPressed();
     }
 
     @Override
