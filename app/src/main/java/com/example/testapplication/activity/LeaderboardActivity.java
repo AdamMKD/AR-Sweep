@@ -1,67 +1,33 @@
 package com.example.testapplication.activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.example.testapplication.DatabaseHelper;
 import com.example.testapplication.R;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static java.util.stream.Collectors.toMap;
-
 public class LeaderboardActivity extends AppCompatActivity {
-
-    private Map<String, Integer> leaderBoardMap = new HashMap<>();
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<Integer> score = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
-        leaderBoardMap.put("Abdi", 10);
-        leaderBoardMap.put("Kumail", 8);
-        leaderBoardMap.put("Haashim", 6);
-        leaderBoardMap.put(ResultActivity.USERNAME, ARCoreActivity.TOTALSCORE);
-
-        Map<String, Integer> sorted = leaderBoardMap
-                .entrySet()
-                .stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .collect(
-                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                                LinkedHashMap::new));
-
-        sorted.forEach((s, integer) -> {
-            names.add(s);
-            score.add(integer);
-        });
+        DatabaseHelper db = new DatabaseHelper(this);
 
         TextView nameTextView = findViewById(R.id.nameRank);
         TextView scoreTextView = findViewById(R.id.pointRank);
 
-        nameTextView.setText("");
-        scoreTextView.setText("");
-        AtomicInteger count = new AtomicInteger();
-        names.forEach(s -> {
-            if (s != null) {
-                count.getAndIncrement();
-                nameTextView.append(String.format("%s\n", s));
-            }
+        db.geAllUsers().forEach(user -> {
+            nameTextView.append(String.format("%s\n", user.getName()));
+            scoreTextView.append(String.format("%d\n", user.getScore()));
         });
-        if (count.get() != score.size()) {
-            score.remove(score.get(score.size() - 1));
-        }
-        score.forEach(integer -> scoreTextView.append(String.format("%d\n", integer)));
     }
 
     @Override
@@ -69,5 +35,21 @@ public class LeaderboardActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    /**
+     * Delete the database to start fresh
+     */
+    private boolean deleteDatabaseAndCheck(String databaseName) {
+        deleteDatabase(databaseName);
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase(databaseName, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException e) {
+            // database doesn't exist yet.
+            Log.e("Database", "Database named " + databaseName + " does not exist.");
+        }
+        return checkDB != null;
     }
 }

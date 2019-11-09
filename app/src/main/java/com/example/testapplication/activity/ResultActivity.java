@@ -6,13 +6,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.testapplication.DatabaseHelper;
 import com.example.testapplication.R;
+import com.example.testapplication.UserScore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ResultActivity extends AppCompatActivity {
+import static com.example.testapplication.activity.QuizActivity.SCORE;
 
-    public static String USERNAME;
+public class ResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +22,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         TextView infoView = findViewById(R.id.gameOverText);
-        infoView.setText("Your final score is " + ARCoreActivity.TOTALSCORE);
+        infoView.setText("Your final score is " + QuizActivity.SCORE);
 
         TextView enterNameView = findViewById(R.id.enterNameView);
         enterNameView.setText("Please Enter you're name to be added to the leader board:");
@@ -36,7 +38,11 @@ public class ResultActivity extends AppCompatActivity {
 
     public void highscorePage(View view) {
         EditText editText = findViewById(R.id.enterNameBox);
-        USERNAME = editText.getText().toString();
+        QuizActivity.SCORE = QuizActivity.RANDOM.nextInt(100) + 1;
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        db.addUser(new UserScore(editText.getText().toString(), SCORE));
+
         Intent intent = new Intent(this, LeaderboardActivity.class);
         startActivity(intent);
         finish();

@@ -11,13 +11,15 @@ import android.widget.Toast;
 import com.example.testapplication.QuestionManager;
 import com.example.testapplication.R;
 
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class QuizActivity extends AppCompatActivity {
 
-    public static int SCORE = 0;
+    public static Random RANDOM = new Random();
+    public static int SCORE = RANDOM.nextInt(20) + 1;
     private QuestionManager questionManager;
     private int counter = 60;
     private TextView textView;
