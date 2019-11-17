@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class QuizActivity extends AppCompatActivity {
 
     public static Random RANDOM = new Random();
-    public static int SCORE = RANDOM.nextInt(20) + 1;
+    public static int SCORE = RANDOM.nextInt(100) + 1;
     private QuestionManager questionManager;
     private int counter = 60;
     private TextView textView;
