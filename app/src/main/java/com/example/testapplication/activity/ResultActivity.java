@@ -36,13 +36,13 @@ public class ResultActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void homePage(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
         finish();
     }

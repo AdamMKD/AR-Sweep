@@ -10,15 +10,17 @@ import com.example.testapplication.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
-
+public class HomePageActivity extends AppCompatActivity {
+    //Todo: make login/register pass you the name of the user and have a static
+    // variable that can be used rather than the user entering their name when they finish.
+    public static String NAME;
     final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, 1.0f);
     private Button exitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_homepage);
 
         exitButton = findViewById(R.id.exit);
         //exitButton exit game

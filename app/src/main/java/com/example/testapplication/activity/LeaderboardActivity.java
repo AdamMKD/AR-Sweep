@@ -26,6 +26,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
         // Todo: Display a different page if there are no players to display.
+        // Todo: Limit the number of players displayed to 10.
 
         TextView nameTextView = findViewById(R.id.nameRank);
         TextView scoreTextView = findViewById(R.id.pointRank);
@@ -61,7 +62,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomePageActivity.class);
         startActivity(intent);
         finish();
     }
