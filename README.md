@@ -1,2 +1,3 @@
 # AR-Sweep
-AR Sweep is an AR game based on the Kumail's forehead.
+AR Sweep is an Android application created for the 2019 Hack Manchester competition.
+
